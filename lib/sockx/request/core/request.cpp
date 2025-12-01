@@ -4,12 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-static Dictionary map_rules = {
-    {"re_request", "^([a-zA-Z0-9*/=_?.,;:()\"' '-]+\n)+)\n\n.+$"},
-    {"re_header", "^([a-zA-Z-]+)([:][' '][a-zA-Z0-9*/=_?.,;:()\"' '-]+)?.{1}$"},
-    {"re_request_line", "^([A-Z]+)[' ']([/](.?)+)[' '][A-Z]+[/]([0-9]+[.]?)+.{1}$"},
-};
-
 void Request::set_rh(char *h)
 {
     char *h_l = strtok(h, "\n");
@@ -86,10 +80,10 @@ err:
 
 Request::~Request()
 {
-buffer:
-    delete this->buffer;
-validator:
-    delete this;
+    delete[] this->buffer;
+    this->buffer = nullptr;
+// validator:
+//     delete this;
 }
 
 Request::Request(const char *b, Dictionary rules) : RegexValidator(rules)

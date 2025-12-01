@@ -15,11 +15,16 @@ protected:
     char *buffer;
     char response[BUFFER];
 
+    // request line
     Dictionary rl;
+    
+    // request header
     Dictionary rh;
+
+    // request body
     Dictionary rb;
 
-    // Validator *validator;
+    // RegexValidator *validator;
 
 private:
     void parse(const char *buffer);
